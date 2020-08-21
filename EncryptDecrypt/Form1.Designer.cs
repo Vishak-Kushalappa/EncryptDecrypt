@@ -154,7 +154,8 @@
             this.encryptionTypes.Items.AddRange(new object[] {
             "Password",
             "iBank Encryption",
-            "Generic"});
+            "Generic",
+            "SAIB"});
             this.encryptionTypes.Location = new System.Drawing.Point(278, 28);
             this.encryptionTypes.Name = "encryptionTypes";
             this.encryptionTypes.Size = new System.Drawing.Size(127, 95);

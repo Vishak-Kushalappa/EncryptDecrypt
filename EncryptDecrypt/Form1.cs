@@ -21,6 +21,7 @@ namespace EncryptDecrypt
             label6.Hide();
         }
         String encryptionKey = "";
+
         private void btnProcess_Click(object sender, EventArgs e)
         {
             String plainText = txtPlainText.Text;
@@ -36,6 +37,14 @@ namespace EncryptDecrypt
                     encryptDecryptCommon(plainText, encryptedText, "iBank",false);
                 else
                     encryptDecryptCommon(encryptedText, encryptedText, "iBank",true);
+
+            }
+            else if (encryptionKey == "SAIB")
+            {
+                if (plainText.Length > 0)
+                    encryptDecryptCommon(plainText, encryptedText, "SAIB", false);
+                else
+                    encryptDecryptCommon(encryptedText, encryptedText, "SAIB", true);
 
             }
             else                
@@ -58,7 +67,9 @@ namespace EncryptDecrypt
                 if (!toBeDecrypted)
                 {
                     if (mode == "iBank")
-                        encryptedtext = Cryptography_CSharp.Encrypt(plainText);
+                        encryptedtext = Cryptography_CSharp.Encrypt(plainText, mode);
+                    else if (mode == "SAIB")
+                        encryptedtext = Cryptography_CSharp.Encrypt(plainText, mode);
                     else
                         encryptedtext = ObjEncryptDecrypt.Encryption(plainText, EnrKey);
                     txtOutput.Text = encryptedtext;
@@ -67,7 +78,9 @@ namespace EncryptDecrypt
                 else if (encryptedText.Length > 0)
                 {
                     if (mode == "iBank")
-                        encrypteDecryptedText = encryptedtext = Cryptography_CSharp.Decrypt(plainText);
+                        encrypteDecryptedText = encryptedtext = Cryptography_CSharp.Decrypt(plainText, mode);
+                    else if (mode == "SAIB")
+                        encrypteDecryptedText = encryptedtext = Cryptography_CSharp.Decrypt(plainText, mode);
                     else
                         encrypteDecryptedText = ObjEncryptDecrypt.Decryption(encryptedText, EnrKey);
                     txtOutput.Text = encrypteDecryptedText;
@@ -135,6 +148,16 @@ namespace EncryptDecrypt
                 txtPlainText.Enabled = true;
                 txtOutput.Enabled = true;
                 encryptionKey = "iBankEncryption";
+            }
+            else if (encryptionTypes.Text == "SAIB")
+            {
+                labelKey.Hide();
+                txtCustomKey.Hide();
+                buttonSetCustomKey.Hide();
+                txtEncText.Enabled = true;
+                txtPlainText.Enabled = true;
+                txtOutput.Enabled = true;
+                encryptionKey = "SAIB";
             }
             else
             {

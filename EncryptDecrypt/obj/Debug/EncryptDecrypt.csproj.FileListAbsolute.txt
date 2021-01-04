@@ -1,10 +1,12 @@
-D:\EncryptDecrypt\EncryptDecrypt\bin\Debug\EncryptDecrypt.exe
 D:\EncryptDecrypt\EncryptDecrypt\bin\Debug\EncryptDecrypt.exe.config
+D:\EncryptDecrypt\EncryptDecrypt\bin\Debug\EncryptDecrypt.exe
 D:\EncryptDecrypt\EncryptDecrypt\bin\Debug\EncryptDecrypt.pdb
+D:\EncryptDecrypt\EncryptDecrypt\bin\Debug\Newtonsoft.Json.dll
+D:\EncryptDecrypt\EncryptDecrypt\bin\Debug\Newtonsoft.Json.xml
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.Form1.resources
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.Properties.Resources.resources
-D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.GenerateResource.Cache
+D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.GenerateResource.cache
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.CoreCompileInputs.cache
+D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.CopyComplete
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.exe
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.pdb
-D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csprojResolveAssemblyReference.cache

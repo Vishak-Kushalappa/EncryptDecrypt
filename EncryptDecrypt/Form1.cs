@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,10 +23,18 @@ namespace EncryptDecrypt
             label6.Hide();
         }
         String encryptionKey = "";
+
         private void btnProcess_Click(object sender, EventArgs e)
         {
             String plainText = txtPlainText.Text;
             String encryptedText = txtEncText.Text;
+            if (encryptedText != "")
+            {
+                encryptedText = encryptedText.Replace("\\n", "");
+                encryptedText = encryptedText.Replace("\\r", "");
+                encryptedText = encryptedText.Replace("\\", "");
+            }                
+
             if (plainText == "" && encryptedText == "")
             {
                 MessageBox.Show("Enter inputs");
@@ -32,18 +42,33 @@ namespace EncryptDecrypt
             }
             if (encryptionKey == "iBankEncryption")
             {
-                if(plainText.Length > 0)
-                    encryptDecryptCommon(plainText, encryptedText, "iBank",false);
+                if (plainText.Length > 0)
+                    encryptDecryptCommon(plainText, encryptedText, "iBank", false);
                 else
-                    encryptDecryptCommon(encryptedText, encryptedText, "iBank",true);
+                    encryptDecryptCommon(encryptedText, encryptedText, "iBank", true);
 
             }
-            else                
+            else if (encryptionKey == "SAIB")
             {
-                if(plainText.Length > 0)
-                    encryptDecryptCommon(plainText, encryptedText, "",false);
+                if (plainText.Length > 0)
+                    encryptDecryptCommon(plainText, encryptedText, "SAIB", false);
                 else
-                    encryptDecryptCommon(encryptedText, encryptedText, "",true);
+                    encryptDecryptCommon(encryptedText, encryptedText, "SAIB", true);
+
+            }
+            else if (encryptionKey == "SIDC Password")
+            {
+                if (plainText.Length > 0)
+                    encryptDecryptCommon(plainText, encryptedText, "SIDC Password", false);
+                else
+                    encryptDecryptCommon(encryptedText, encryptedText, "SIDC Password", true);
+            }
+            else
+            {
+                if (plainText.Length > 0)
+                    encryptDecryptCommon(plainText, encryptedText, "", false);
+                else
+                    encryptDecryptCommon(encryptedText, encryptedText, "", true);
             }                           
         }
 
@@ -58,7 +83,11 @@ namespace EncryptDecrypt
                 if (!toBeDecrypted)
                 {
                     if (mode == "iBank")
-                        encryptedtext = Cryptography_CSharp.Encrypt(plainText);
+                        encryptedtext = Cryptography_CSharp.Encrypt(plainText, mode);
+                    else if (mode == "SAIB")
+                        encryptedtext = Cryptography_CSharp.Encrypt(plainText, mode);
+                    else if(mode == "SIDC Password")
+                        encryptedtext = Cryptography_CSharp.Encrypt(plainText, mode);
                     else
                         encryptedtext = ObjEncryptDecrypt.Encryption(plainText, EnrKey);
                     txtOutput.Text = encryptedtext;
@@ -67,10 +96,29 @@ namespace EncryptDecrypt
                 else if (encryptedText.Length > 0)
                 {
                     if (mode == "iBank")
-                        encrypteDecryptedText = encryptedtext = Cryptography_CSharp.Decrypt(plainText);
+                        encrypteDecryptedText = encryptedtext = Cryptography_CSharp.Decrypt(plainText, mode);
+                    else if (mode == "SAIB")
+                        encrypteDecryptedText = encryptedtext = Cryptography_CSharp.Decrypt(plainText, mode);
                     else
                         encrypteDecryptedText = ObjEncryptDecrypt.Decryption(encryptedText, EnrKey);
-                    txtOutput.Text = encrypteDecryptedText;
+                    if (checkBox1.Checked)
+                    {
+                        JToken parsedJson = JToken.Parse(encrypteDecryptedText);
+                        txtOutput.Text = parsedJson.ToString(Formatting.Indented);
+                        var formPopup = new Form();
+                        TextBox textBox = new TextBox();
+                        textBox.AppendText(parsedJson.ToString(Formatting.Indented));
+                        textBox.Multiline = true;                   
+                        textBox.Width = ClientRectangle.Width;
+                        textBox.Height = ClientRectangle.Height;
+                        textBox.ScrollBars = ScrollBars.Vertical;
+                        textBox.SelectionStart = textBox.Text.Length;
+                        textBox.ScrollToCaret();
+                        formPopup.Controls.Add(textBox);
+                        formPopup.Show(this);
+                    }
+                    else
+                        txtOutput.Text = encrypteDecryptedText;
                     return;
                 }
             }
@@ -135,6 +183,26 @@ namespace EncryptDecrypt
                 txtPlainText.Enabled = true;
                 txtOutput.Enabled = true;
                 encryptionKey = "iBankEncryption";
+            }
+            else if (encryptionTypes.Text == "SAIB")
+            {
+                labelKey.Hide();
+                txtCustomKey.Hide();
+                buttonSetCustomKey.Hide();
+                txtEncText.Enabled = true;
+                txtPlainText.Enabled = true;
+                txtOutput.Enabled = true;
+                encryptionKey = "SAIB";
+            }
+            else if (encryptionTypes.Text == "SIDC Password")
+            {
+                labelKey.Hide();
+                txtCustomKey.Hide();
+                buttonSetCustomKey.Hide();
+                txtEncText.Enabled = true;
+                txtPlainText.Enabled = true;
+                txtOutput.Enabled = true;
+                encryptionKey = "SIDC Password";
             }
             else
             {

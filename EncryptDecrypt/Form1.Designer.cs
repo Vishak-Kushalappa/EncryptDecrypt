@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.buttonSetCustomKey = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -154,7 +155,10 @@
             this.encryptionTypes.Items.AddRange(new object[] {
             "Password",
             "iBank Encryption",
-            "Generic"});
+            "Generic",
+            "SAIB",
+            "OUPI",
+            "SIDC Password"});
             this.encryptionTypes.Location = new System.Drawing.Point(278, 28);
             this.encryptionTypes.Name = "encryptionTypes";
             this.encryptionTypes.Size = new System.Drawing.Size(127, 95);
@@ -211,19 +215,33 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoEllipsis = true;
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.YellowGreen;
             this.label6.Location = new System.Drawing.Point(278, 126);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 44);
+            this.label6.Size = new System.Drawing.Size(66, 30);
             this.label6.TabIndex = 13;
             this.label6.Text = "Copied To \r\nClipboard";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.ForeColor = System.Drawing.Color.Red;
+            this.checkBox1.Location = new System.Drawing.Point(282, 161);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(124, 17);
+            this.checkBox1.TabIndex = 6;
+            this.checkBox1.Text = "Decrypt JSON Text?";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 261);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonSetCustomKey);
             this.Controls.Add(this.label4);
@@ -264,6 +282,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonSetCustomKey;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,6 +24,11 @@ namespace EncryptDecrypt
             {
                 Key = SAIBkey;
                 IV = SAIBKey1;
+            }
+            else if (appType == "SIDC Password")
+            {
+                Key = "4FQ%FDEuEV-N#sQyQF+h9Lt@bP!ahrGb";
+                IV = "<2TsU)-&X(_deee,";               
             }
             else
             {
@@ -61,9 +67,8 @@ namespace EncryptDecrypt
             rijndaelCipher.IV = keyBytes1;
             ICryptoTransform transform = rijndaelCipher.CreateEncryptor();
             byte[] plainText = Encoding.UTF8.GetBytes(data);
-
-            return Convert.ToBase64String
-            (transform.TransformFinalBlock(plainText, 0, plainText.Length));
+            
+            return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));            
         }
 
         public static string Decrypt(string data, string appType)

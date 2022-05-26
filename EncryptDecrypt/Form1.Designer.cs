@@ -102,6 +102,7 @@
             // 
             // txtPlainText
             // 
+            this.txtPlainText.BackColor = System.Drawing.Color.White;
             this.txtPlainText.Location = new System.Drawing.Point(6, 46);
             this.txtPlainText.MinimumSize = new System.Drawing.Size(4, 50);
             this.txtPlainText.Multiline = true;
@@ -239,7 +240,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(417, 261);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label6);
@@ -252,11 +253,14 @@
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnProcess);
             this.Controls.Add(this.groupBox1);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(433, 300);
             this.MinimumSize = new System.Drawing.Size(433, 252);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Encryption / Decryption";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

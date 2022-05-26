@@ -157,8 +157,7 @@
             "iBank Encryption",
             "Generic",
             "SAIB",
-            "OUPI",
-            "SIDC Password"});
+            "SIDC"});
             this.encryptionTypes.Location = new System.Drawing.Point(278, 28);
             this.encryptionTypes.Name = "encryptionTypes";
             this.encryptionTypes.Size = new System.Drawing.Size(127, 95);
@@ -216,7 +215,7 @@
             this.label6.AutoEllipsis = true;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.YellowGreen;
+            this.label6.ForeColor = System.Drawing.Color.DarkOrchid;
             this.label6.Location = new System.Drawing.Point(278, 126);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 30);
@@ -240,6 +239,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(417, 261);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label6);
@@ -257,6 +257,7 @@
             this.MinimumSize = new System.Drawing.Size(433, 252);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

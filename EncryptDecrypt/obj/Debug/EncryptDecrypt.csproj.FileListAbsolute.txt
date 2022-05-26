@@ -7,6 +7,6 @@ D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.Form1.resources
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.Properties.Resources.resources
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.GenerateResource.cache
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.CoreCompileInputs.cache
-D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csproj.CopyComplete
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.exe
 D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.pdb
+D:\EncryptDecrypt\EncryptDecrypt\obj\Debug\EncryptDecrypt.csprojResolveAssemblyReference.cache

@@ -20,56 +20,74 @@ namespace EncryptDecrypt
             labelKey.Hide();
             txtCustomKey.Hide();
             buttonSetCustomKey.Hide();
-            label6.Hide();
+            label6.Hide();            
         }
         String encryptionKey = "";
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
-            String plainText = txtPlainText.Text;
-            String encryptedText = txtEncText.Text;
-            if (encryptedText != "")
+            try
             {
-                encryptedText = encryptedText.Replace("\\n", "");
-                encryptedText = encryptedText.Replace("\\r", "");
-                encryptedText = encryptedText.Replace("\\", "");
-            }                
+                String plainText = txtPlainText.Text;
+                String encryptedText = txtEncText.Text;
+                try
+                {
+                    JObject json = new JObject();
+                    json = JObject.Parse(encryptedText);
+                    if (json.ContainsKey("data"))
+                        encryptedText = json.GetValue("data").ToString();
+                }
+                catch
+                {
 
-            if (plainText == "" && encryptedText == "")
-            {
-                MessageBox.Show("Enter inputs");
-                return;
-            }
-            if (encryptionKey == "iBankEncryption")
-            {
-                if (plainText.Length > 0)
-                    encryptDecryptCommon(plainText, encryptedText, "iBank", false);
-                else
-                    encryptDecryptCommon(encryptedText, encryptedText, "iBank", true);
+                }
+                if (encryptedText != "")
+                {
+                    encryptedText = encryptedText.Replace("\\n", "");
+                    encryptedText = encryptedText.Replace("\\r", "");
+                    encryptedText = encryptedText.Replace("\\", "");
+                }
 
-            }
-            else if (encryptionKey == "SAIB")
-            {
-                if (plainText.Length > 0)
-                    encryptDecryptCommon(plainText, encryptedText, "SAIB", false);
-                else
-                    encryptDecryptCommon(encryptedText, encryptedText, "SAIB", true);
+                if (plainText == "" && encryptedText == "")
+                {
+                    MessageBox.Show("Enter inputs");
+                    return;
+                }
+                if (encryptionKey == "iBankEncryption")
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "iBank", false);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "iBank", true);
 
-            }
-            else if (encryptionKey == "SIDC Password")
-            {
-                if (plainText.Length > 0)
-                    encryptDecryptCommon(plainText, encryptedText, "SIDC Password", false);
+                }
+                else if (encryptionKey == "SAIB")
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "SAIB", false);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "SAIB", true);
+
+                }
+                else if (encryptionKey == "SIDC Password")
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "SIDC Password", false);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "SIDC Password", true);
+                }
                 else
-                    encryptDecryptCommon(encryptedText, encryptedText, "SIDC Password", true);
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "", false);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "", true);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                if (plainText.Length > 0)
-                    encryptDecryptCommon(plainText, encryptedText, "", false);
-                else
-                    encryptDecryptCommon(encryptedText, encryptedText, "", true);
-            }                           
+                MessageBox.Show("Encryption / Decryption error, please try again");
+            }                                       
         }
 
         private void encryptDecryptCommon(String plainText, String encryptedText,String mode,bool toBeDecrypted)
@@ -103,19 +121,26 @@ namespace EncryptDecrypt
                         encrypteDecryptedText = ObjEncryptDecrypt.Decryption(encryptedText, EnrKey);
                     if (checkBox1.Checked)
                     {
-                        JToken parsedJson = JToken.Parse(encrypteDecryptedText);
-                        txtOutput.Text = parsedJson.ToString(Formatting.Indented);
-                        var formPopup = new Form();
-                        TextBox textBox = new TextBox();
-                        textBox.AppendText(parsedJson.ToString(Formatting.Indented));
-                        textBox.Multiline = true;                   
-                        textBox.Width = ClientRectangle.Width;
-                        textBox.Height = ClientRectangle.Height;
-                        textBox.ScrollBars = ScrollBars.Vertical;
-                        textBox.SelectionStart = textBox.Text.Length;
-                        textBox.ScrollToCaret();
-                        formPopup.Controls.Add(textBox);
-                        formPopup.Show(this);
+                        try
+                        {
+                            JToken parsedJson = JToken.Parse(encrypteDecryptedText);
+                            txtOutput.Text = parsedJson.ToString(Formatting.Indented);
+                            var formPopup = new Form();
+                            TextBox textBox = new TextBox();
+                            textBox.AppendText(parsedJson.ToString(Formatting.Indented));
+                            textBox.Multiline = true;
+                            textBox.Width = ClientRectangle.Width;
+                            textBox.Height = ClientRectangle.Height;
+                            textBox.ScrollBars = ScrollBars.Vertical;
+                            textBox.SelectionStart = textBox.Text.Length;
+                            textBox.ScrollToCaret();
+                            formPopup.Controls.Add(textBox);
+                            formPopup.Show(this);
+                        }
+                        catch
+                        {
+                            txtOutput.Text = encrypteDecryptedText;
+                        }                        
                     }
                     else
                         txtOutput.Text = encrypteDecryptedText;
@@ -124,7 +149,7 @@ namespace EncryptDecrypt
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception : " + e.Message);
+                MessageBox.Show("Encryption / Decryption error, please try again");
             }            
         }
 
@@ -165,6 +190,7 @@ namespace EncryptDecrypt
 
         private void encryptionTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkBox1.Checked = true;
             if (encryptionTypes.Text == "Generic")
             {
                 labelKey.Show();
@@ -173,6 +199,7 @@ namespace EncryptDecrypt
                 txtEncText.Enabled = false;
                 txtPlainText.Enabled = false;
                 txtOutput.Enabled = false;
+                checkBox1.Checked = false;
             }
             else if (encryptionTypes.Text == "iBank Encryption")
             {
@@ -184,7 +211,7 @@ namespace EncryptDecrypt
                 txtOutput.Enabled = true;
                 encryptionKey = "iBankEncryption";
             }
-            else if (encryptionTypes.Text == "SAIB")
+            else if (encryptionTypes.Text == "SAIB" || encryptionTypes.Text == "SIDC")
             {
                 labelKey.Hide();
                 txtCustomKey.Hide();
@@ -213,6 +240,7 @@ namespace EncryptDecrypt
                 txtPlainText.Enabled = true;
                 txtOutput.Enabled = true;
                 encryptionKey = "encryptPassword";
+                checkBox1.Checked = false;
             }
         }
 
@@ -232,8 +260,25 @@ namespace EncryptDecrypt
 
         private void txtOutput_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(txtOutput.Text.ToString());
-            label6.Show();
+            try
+            {
+                Clipboard.SetText(txtOutput.Text.ToString());
+                label6.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Click on Encrypt/Decrypt");
+            }            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ToolTip t_Tip = new ToolTip();
+            t_Tip.Active = true;            
+            t_Tip.IsBalloon = true;
+            t_Tip.ToolTipIcon = ToolTipIcon.Info;
+            t_Tip.ShowAlways = true;
+            t_Tip.SetToolTip(txtOutput, "Click to copy");
         }
     }
 }

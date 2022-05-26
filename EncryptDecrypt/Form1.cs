@@ -90,7 +90,7 @@ namespace EncryptDecrypt
             }                                       
         }
 
-        private void encryptDecryptCommon(String plainText, String encryptedText,String mode,bool toBeDecrypted)
+        private void encryptDecryptCommon(String plainText, String encryptedText,String mode,bool toBeDecrypted,bool isAutoDecrypt = false)
         {
             String EnrKey = encryptionKey;
             EncryptionAndDecryption ObjEncryptDecrypt = new EncryptionAndDecryption();
@@ -149,7 +149,8 @@ namespace EncryptDecrypt
             }
             catch (Exception e)
             {
-                MessageBox.Show("Encryption / Decryption error, please try again");
+                if(!isAutoDecrypt)
+                    MessageBox.Show("Encryption / Decryption error, please try again");
             }            
         }
 
@@ -162,6 +163,7 @@ namespace EncryptDecrypt
                 txtPlainText.Enabled = true;
                 txtEncText.Enabled = true;
             }
+            beginEncryptionDecryption();
         }
 
         private void txtEncText_TextChanged(object sender, EventArgs e)
@@ -172,6 +174,73 @@ namespace EncryptDecrypt
             {
                 txtPlainText.Enabled = true;
                 txtEncText.Enabled = true;
+            }
+            beginEncryptionDecryption();
+        }
+
+        private void beginEncryptionDecryption()
+        {
+            try
+            {
+                String plainText = txtPlainText.Text;
+                String encryptedText = txtEncText.Text;
+                try
+                {
+                    JObject json = new JObject();
+                    json = JObject.Parse(encryptedText);
+                    if (json.ContainsKey("data"))
+                        encryptedText = json.GetValue("data").ToString();
+                }
+                catch
+                {
+
+                }
+                if (encryptedText != "")
+                {
+                    encryptedText = encryptedText.Replace("\\n", "");
+                    encryptedText = encryptedText.Replace("\\r", "");
+                    encryptedText = encryptedText.Replace("\\", "");
+                }
+
+                if (plainText == "" && encryptedText == "")
+                {
+                    MessageBox.Show("Enter inputs");
+                    return;
+                }
+                if (encryptionKey == "iBankEncryption")
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "iBank", false,true);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "iBank", true, true);
+
+                }
+                else if (encryptionKey == "SAIB")
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "SAIB", false, true);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "SAIB", true, true);
+
+                }
+                else if (encryptionKey == "SIDC Password")
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "SIDC Password", false, true);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "SIDC Password", true, true);
+                }
+                else
+                {
+                    if (plainText.Length > 0)
+                        encryptDecryptCommon(plainText, encryptedText, "", false, true);
+                    else
+                        encryptDecryptCommon(encryptedText, encryptedText, "", true, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                //
             }
         }
 
